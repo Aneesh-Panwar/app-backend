@@ -66,7 +66,7 @@ Example:
 
 # 📦 Dependencies
 
-| Package          | Purpose                       |
+| Package          | Purpose                        |
 |------------------|--------------------------------|
 | **mongoose**     | Database management (MongoDB)  |
 | **express**      | Web framework for routing      |
@@ -186,3 +186,5 @@ app.get('/user/:id', async (req, res) => {
 }
 ```
 ---
+
+
