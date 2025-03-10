@@ -1,3 +1,14 @@
+ # Table Of Content
+1. [NPM & Git Commands](#-npm--git-commands)
+2. [Using MongoDB Atlas (Online Database)](#-using-mongodb-atlas-online-database)
+3. [Project File Structure](#-project-file-structure)
+4. [Dependencies](#-dependencies)
+5. [Online Database Setup (MongoDB Atlas)](#-online-database-setup-mongodb-atlas)
+6. [Async Handler Utility](#-async-handler-utility)
+7. [Custom Error Handling (ApiError.js)](#-custom-error-handling-apierrorjs)
+8. [Custom Response Handling (ApiResponse.js)](#-custom-response-handling-apiresponsejs)
+---
+
 # 📌 NPM & GIT COMMANDS
 
 - **Install a package for development only:**  
@@ -34,6 +45,7 @@ Example:
 
 ---
 
+
 # 📂 Project File Structure
 
 ```
@@ -41,17 +53,21 @@ Example:
   📁 src
     ├── 📁 controller  (Functions for specific routes)
     ├── 📁 db          (Database connection)
-    │     ├── index.js
+    │     ├── 📄index.js
     ├── 📁 middlewares 
     ├── 📁 models      (Schema definitions)
+    |     ├── 📄user.model.js     (user schema + some functions related to user)
+    |     ├── 📄video.model.js    (video schema + aggregation plugin for complex queries)
+    |     ├── 📄
+    |     ├── 📄
     ├── 📁 routes      (API routes)
     ├── 📁 utils       (Reusable utility functions)
-    │     ├── ApiError.js       (Custom error handling)
-    │     ├── ApiResponse.js    (Custom response handling)
-    │     ├── asyncHandler.js   (Try-catch handling)
-    ├── app.js         (Main app file)
-    ├── constants.js   (Global constants)
-    ├── index.js       (Entry point)
+    │     ├── 📄ApiError.js       (Custom error handling)
+    │     ├── 📄ApiResponse.js    (Custom response handling)
+    │     ├── 📄asyncHandler.js   (Try-catch handling)
+    ├── 📄app.js         (Main app file)
+    ├── 📄constants.js   (Global constants)
+    ├── 📄index.js       (Entry point)
   📄 .env               (Environment variables)
   📄 .gitignore         (Ignore files/folders for Git tracking)
   📄 .prettierrc        (Code formatting rules)
@@ -73,6 +89,9 @@ Example:
 | **dotenv**       | Load environment variables     |
 | **cookie-parser**| Access user browser cookies    |
 | **cors**         | Enable Cross-Origin Requests   |
+| **bcrypt**         | password-hashing algorithm used to securely store passwords   |
+| **jsonwebtoken**         | transmitting information between parties as a JSON object  |
+| **mongoose-aggregate-paginate**         | plugin that helps with pagination when using aggregate queries.  |
 
 ---
 
@@ -98,6 +117,26 @@ const asyncHandler = (fn) => {
     };
 };
 ```
+
+#### *how this `next(err)` works 👇*
+```js
+app.use((err, req, res, next) => {
+  res.status(500).json({ success: false, message: err.message });
+});
+```
+
+### ***Since we added this middleware at the end of all routes, Express will now use it:***
+- *Express sees that next(err) was called.*
+- *It skips all normal routes and middleware.*
+- *It finds the first middleware with err as the first argument.*
+- *It sends a JSON error response :*
+```json
+{
+  "success": false,
+  "message": "User not found"
+}
+```
+
 
 ### **Usage**
 ```js
