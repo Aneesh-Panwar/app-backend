@@ -1,12 +1,11 @@
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");  // file system of node.Js (for file operation)
-const { asyncHandler } = require("./asyncHandler");
 
 
 cloudinary.config({ 
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
     api_key: process.env.CLOUDINARY_API_KEY, 
-    api_secret: CLOUDINARY_SECRET
+    api_secret: process.env.CLOUDINARY_SECRET
 });
 
 
@@ -28,3 +27,5 @@ const uploadOnCloudinary = async (localFilePath)=>{
         return null;
     }
 }
+
+module.exports = uploadOnCloudinary;

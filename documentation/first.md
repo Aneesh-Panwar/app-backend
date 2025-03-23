@@ -52,19 +52,27 @@ Example:
   📁 public
   📁 src
     ├── 📁 controller  (Functions for specific routes)
+    |     ├── 📄user.controller.js  (user controllers)
+    |
     ├── 📁 db          (Database connection)
     │     ├── 📄index.js
     ├── 📁 middlewares 
+    |     ├── 📄multer.middleware.js   (for file handeling)
+    |     ├── 
+    |
     ├── 📁 models      (Schema definitions)
     |     ├── 📄user.model.js     (user schema + some functions related to user)
     |     ├── 📄video.model.js    (video schema + aggregation plugin for complex queries)
     |     ├── 📄
     |     ├── 📄
     ├── 📁 routes      (API routes)
+    |     ├── 📄user.routes.js
+    |
     ├── 📁 utils       (Reusable utility functions)
     │     ├── 📄ApiError.js       (Custom error handling)
     │     ├── 📄ApiResponse.js    (Custom response handling)
     │     ├── 📄asyncHandler.js   (Try-catch handling)
+    │     ├── 📄cloudinary.service.js   (to store files on cloud/online)
     ├── 📄app.js         (Main app file)
     ├── 📄constants.js   (Global constants)
     ├── 📄index.js       (Entry point)
