@@ -144,12 +144,43 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
     }
 })
 
+const changePassword = asyncHandler(async(req,res)=>{
 
+    const {oldPassword,newPassword} = req.body
 
+    const user = await User.findById(req.user?._id)
+    if(!await user.isPasswordCorrect(oldPassword)) throw new ApiError(401,"Incorrect old password");
+
+    user.password = newPassword;
+    await user.save({validateBeforeSave:true});
+
+    return res.status(200).json(new ApiResponse(200,{},"password changed"))
+    
+})
+
+const updateAccount = asyncHandler(async(req,res)=>{
+
+    const {fullname,email} = req.body
+
+    if(!(fullname || email)) throw new ApiError(400,"all fields required");
+
+    const user = await User.findByIdAndUpdate(req.user._id,
+        {$set:{fullname,email}},{new:true}
+    ).select("-password refreshToken")
+
+    return res.status(200).json(new ApiResponse(200,user,"user details updated"))
+})
+
+const updateUserAvatar = asyncHandler(async(req,res)=>{
+
+    
+})
 
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
-    refreshAccessToken
+    refreshAccessToken,
+    changePassword,
+    updateAccount,
 }
