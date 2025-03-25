@@ -9,7 +9,7 @@ app.use(cors({
     credentials:true
 }))
 
-app.use(express.json({limit: '20kb'}))
+app.use(express.json({limit: '30kb'}))
 
 // to get data from differnet type of url's
 app.use(express.urlencoded({extended: true,limit: '20kb'}))
